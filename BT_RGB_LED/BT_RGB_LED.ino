@@ -21,10 +21,10 @@ void setup() {
 void loop() {
   if (btSerial.available()) {
     btOutput=btSerial.readString();
-    String cmd = getValue(btOutput,'_',1);
-    String valA = getValue(btOutput,'_',0);
-    String valB = getValue(btOutput,'_',0);
-    String valC = getValue(btOutput,'_',0);
+    String cmd = getValue(btOutput,'_',0);
+    String valA = getValue(btOutput,'_',1);
+    String valB = getValue(btOutput,'_',2);
+    String valC = getValue(btOutput,'_',3);
     if(cmd=="off"){
       digitalWrite(red, HIGH);
       digitalWrite(green, HIGH);
@@ -33,11 +33,13 @@ void loop() {
 
     }
     if(cmd=="on"){
-      analogWrite(red, val.toInt());
-      analogWrite(green, val.toInt());
-      analogWrite(blue, val.toInt());
-      Serial.print("ON_");
-      Serial.println(val.toInt());
+      analogWrite(red, 255- valA.toInt());
+      analogWrite(green, 255- valB.toInt());
+      analogWrite(blue, 255- valC.toInt());
+      Serial.println("ON_");
+      Serial.println(valA.toInt());
+      Serial.println(valB.toInt());
+      Serial.println(valC.toInt());
     }
   }
   // if (Serial.available()) {
